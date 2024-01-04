@@ -1,0 +1,84 @@
+{% url 'register_pharmacy' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Registro de Farmacia</title>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let registerForm = document.getElementById("registerForm");
+
+            if (registerForm) {
+                registerForm.addEventListener("submit", function (event) {
+                    event.preventDefault();
+
+                    let formData = new FormData(registerForm);
+
+                    fetch("{% url 'register_pharmacy' %}", {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert("Registro exitoso");
+                        } else {
+                            alert("Error de registro: " + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert("Error al procesar la solicitud");
+                    });
+                });
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const getGPSCoordinatesButton = document.getElementById("getGPSCoordinates");
+            const latitudeInput = document.getElementById("latitude");
+            const longitudeInput = document.getElementById("longitude");
+
+            if (getGPSCoordinatesButton) {
+                getGPSCoordinatesButton.addEventListener("click", function () {
+                    if ("geolocation" in navigator) {
+                        navigator.geolocation.getCurrentPosition(
+                            function (position) {
+                                let lat = position.coords.latitude;
+                                let lon = position.coords.longitude;
+
+                                latitudeInput.value = lat;
+                                longitudeInput.value = lon;
+
+                                alert("Ubicación GPS obtenida correctamente.");
+                            },
+                            function (error) {
+                                console.error("Error al obtener la ubicación: ", error.message);
+                                alert("Error al obtener la ubicación. Asegúrate de tener activada la geolocalización.");
+                            }
+                        );
+                    } else {
+                        alert("Tu navegador no soporta la geolocalización.");
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+    <!-- Formulario de registro -->
+    <form id="registerForm" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!-- Tus campos de formulario... -->
+        <button type="submit" class="btn btn-primary">Registrar Farmacia</button>
+    </form>
+
+    <!-- Enlace para abrir el formulario de inicio de sesión -->
+    <p>¿Ya tienes una cuenta? <a href="{% url 'login_page' %}">Iniciar Sesión</a></p>
+
+    <!-- Otro contenido de la página si es necesario -->
+</body>
+</html>
+
+
+

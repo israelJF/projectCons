@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Encabezado y enlaces a tus archivos estáticos -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var loginForm = document.getElementById("loginForm");
+
+            if (loginForm) {
+                loginForm.addEventListener("submit", function (event) {
+                    event.preventDefault();
+
+                    // Obtener los datos del formulario
+                    var formData = new FormData(loginForm);
+
+                    // Enviar los datos al servidor utilizando AJAX
+                    fetch("{% url 'login_page' %}", {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Manejar la respuesta del servidor
+                        if (data.success) {
+                            // Redirigir o realizar acciones adicionales
+                            alert("Inicio de sesión exitoso");
+                        } else {
+                            alert("Error de inicio de sesión: " + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert("Error al procesar la solicitud");
+                    });
+                });
+            }
+
+            var registerLink = document.getElementById("registerLink");
+
+            if (registerLink) {
+                registerLink.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    // Redirigir a la página de registro
+                    window.location.href = "{% url 'register_pharmacy' %}";
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+    <!-- Formulario de inicio de sesión -->
+    <form id="loginForm">
+        {% csrf_token %}
+        <label for="username">Nombre de usuario:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit" class="btn btn-primary ml-lg-3">Iniciar Sesión</button>
+    </form>
+
+    <!-- Pregunta para redirigir a la página de registro -->
+    <p>¿No tienes una cuenta? <a href="#" id="registerLink">Regístrate aquí</a></p>
+
+    <!-- Otro contenido de la página si es necesario -->
+</body>
+</html>
+

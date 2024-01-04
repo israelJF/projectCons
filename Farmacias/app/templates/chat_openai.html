@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat con OpenAI</title>
+    <!-- Puedes incluir aquí tus estilos CSS si es necesario -->
+</head>
+<body>
+    <div>
+        <h1>Chat con OpenAI</h1>
+        <form id="chatOpenAIForm">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="message">Mensaje:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+
+            <button type="submit">Enviar</button>
+        </form>
+
+        <div id="chatContainer">
+            <!-- Aquí se mostrarán las respuestas del chat -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var chatOpenAIForm = document.getElementById("chatOpenAIForm");
+            var chatContainer = document.getElementById("chatContainer");
+
+            if (chatOpenAIForm) {
+                chatOpenAIForm.addEventListener("submit", function (event) {
+                    event.preventDefault();
+
+                    var actionUrl = chatOpenAIForm.getAttribute('action');
+                    var formData = new FormData(chatOpenAIForm);
+                    var formDataObject = {};
+                    formData.forEach(function (value, key) {
+                        formDataObject[key] = value;
+                    });
+                    var jsonData = JSON.stringify(formDataObject);
+
+                    fetch(actionUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': formDataObject['csrfmiddlewaretoken']
+                        },
+                        body: jsonData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Mostrar la respuesta en el contenedor de chat
+                        var responseMessage = document.createElement("p");
+                        responseMessage.textContent = data.response;
+                        chatContainer.appendChild(responseMessage);
+                    })
+                    .catch(error => {
+                        console.error('Error al enviar el formulario:', error);
+                    });
+                });
+            }
+        });
+    </script>
+    <!-- Puedes incluir aquí tus scripts JS si es necesario -->
+</body>
+</html>

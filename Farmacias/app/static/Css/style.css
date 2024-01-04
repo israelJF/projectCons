@@ -1,0 +1,99 @@
+/* Estilos generales del chat */
+.chat-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #ffe4b5; /* Cambiamos el color de fondo del chat a crema */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Garamond', serif; /* Cambiamos el tipo de letra a Garamond o el que prefieras */
+    font-weight: bold; /* Aplicamos negritas al texto */
+}
+
+.chat-messages {
+    padding: 10px;
+}
+
+.chat-form {
+    display: flex;
+    margin-top: 10px;
+}
+
+#messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos de los mensajes */
+.message {
+    margin-bottom: 10px;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: bold; /* Aplicamos negritas a los mensajes */
+}
+
+.message.sender {
+    background-color: #007bff; /* Azul brillante para los mensajes del remitente */
+    color: white;
+}
+
+.message.receiver {
+    background-color: #28a745; /* Verde para los mensajes del destinatario */
+    color: white;
+}
+
+/* Estilos del formulario de chat */
+#form {
+    display: flex;
+    margin-top: 10px;
+}
+
+#message_input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px 0 0 10px;
+    font-size: 14px;
+    font-weight: bold; /* Aplicamos negritas al texto del formulario */
+}
+
+/* Estilos del formulario de chat */
+#form {
+    display: flex;
+    margin-top: 10px;
+}
+
+#message_input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px 0 0 10px;
+    font-size: 14px;
+}
+
+#form button {
+    padding: 12px 20px;
+    border: 1px solid #ccc;
+    border-radius: 0 10px 10px 0;
+    background-color: #ffcc00;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#form button:hover {
+    background-color: #e6b800;
+}
+
+/* Estilo del icono en el botón */
+#form button span {
+    margin-right: 5px; /* Espaciado entre el icono y el texto (si lo hay) */
+}
+
+
+
+
+
+

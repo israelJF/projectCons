@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Encabezado y enlaces a tus archivos estáticos -->
+</head>
+<body>
+    <h1>Farmacias Cercanas</h1>
+
+    {% for pharmacy in pharmacies %}
+        <!-- Aquí puedes mostrar la información de cada farmacia -->
+        <p>{{ pharmacy.name }}, {{ pharmacy.location }}</p>
+    {% endfor %}
+
+    <!-- Otro contenido de la página si es necesario -->
+</body>
+</html>
+
+
